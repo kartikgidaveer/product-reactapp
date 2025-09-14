@@ -1,5 +1,12 @@
 
+
 # Product Management System (Beginner Friendly)
+
+## About This Project
+
+This is a newly created React project for managing products. It is designed to be beginner-friendly and demonstrates basic CRUD operations, search functionality, and modern React development practices using Vite and Tailwind CSS.
+
+
 
 A simple React app to manage products. You can view, add, edit, delete, and search products. All styling is done with Tailwind CSS.
 
@@ -10,6 +17,7 @@ A simple React app to manage products. You can view, add, edit, delete, and sear
 - Edit products inline
 - Delete products
 - Search products by title, category, or description
+- Pagination for product list
 - Loading spinner and error messages
 
 ## Tech Stack
@@ -53,6 +61,7 @@ src/
 - Click "Edit" to change a product, then "Save" or "Cancel"
 - Click "Delete" to remove a product (with confirmation)
 - Use the search box to filter products
+- Use pagination controls at the bottom of the product table to navigate between pages of products
 
 ## API Info
 
