@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-// ProductRow shows one product in the table
 function ProductRow({ product, onUpdate, onDelete }) {
-  // State for editing
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
     title: product.title,
@@ -11,13 +9,11 @@ function ProductRow({ product, onUpdate, onDelete }) {
     category: product.category
   });
 
-  // Save changes
   function handleSave() {
     onUpdate(product.id, editData);
     setIsEditing(false);
   }
 
-  // Cancel editing
   function handleCancel() {
     setEditData({
       title: product.title,
@@ -28,7 +24,6 @@ function ProductRow({ product, onUpdate, onDelete }) {
     setIsEditing(false);
   }
 
-  // Handle input changes
   function handleInputChange(field, value) {
     setEditData(prev => ({
       ...prev,
@@ -36,18 +31,16 @@ function ProductRow({ product, onUpdate, onDelete }) {
     }));
   }
 
-  // Render the row
+ 
   return (
-    <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-      {/* Product image */}
-      <td className="px-6 py-4 text-center">
+    <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+      <td>
         <img
           src={product.image}
           alt={product.title}
           className="h-12 w-12 rounded-lg object-cover mx-auto"
         />
       </td>
-      {/* Product title */}
       <td className="px-6 py-4">
         {isEditing ? (
           <input
@@ -62,12 +55,10 @@ function ProductRow({ product, onUpdate, onDelete }) {
           </span>
         )}
       </td>
-      {/* Product price */}
       <td className="px-6 py-4">
         {isEditing ? (
           <input
             type="number"
-            step="0.01"
             value={editData.price}
             onChange={e => handleInputChange('price', parseFloat(e.target.value))}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white text-sm"
@@ -78,7 +69,6 @@ function ProductRow({ product, onUpdate, onDelete }) {
           </span>
         )}
       </td>
-      {/* Product category */}
       <td className="px-6 py-4">
         {isEditing ? (
           <input

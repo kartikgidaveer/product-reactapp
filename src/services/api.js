@@ -1,14 +1,11 @@
-// API base URL for products
 const API_URL = 'https://fakestoreapi.com/products';
 
-// Get all products from the API
 export async function fetchProducts() {
   const response = await fetch(API_URL);
   const products = await response.json();
   return products;
 }
 
-// Add a new product (local only)
 export function addProduct(product) {
   return {
     id: Date.now(),
@@ -17,7 +14,6 @@ export function addProduct(product) {
   };
 }
 
-// Update a product (local only)
 export function updateProduct(id, product) {
   return {
     id,
@@ -25,7 +21,6 @@ export function updateProduct(id, product) {
   };
 }
 
-// Delete a product (local only)
 export function deleteProduct(id) {
   return id;
 }

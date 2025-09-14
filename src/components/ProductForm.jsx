@@ -51,81 +51,74 @@ function ProductForm({ onSubmit, onCancel }) {
 
   // Render the form
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow border border-gray-200 max-w-md mx-auto space-y-4">
-      <h3 className="text-lg font-bold text-gray-900 mb-2">Add Product</h3>
-      {/* Title */}
-      <div>
+    <form onSubmit={handleSubmit} className="bg-white p-4 rounded border max-w-md mx-auto">
+      <h3 className="text-base font-bold text-gray-900 mb-2">Add Product</h3>
+      <div className="mb-2">
         <input
           type="text"
           name="title"
           value={formData.title}
           onChange={handleInputChange}
-          className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${errors.title ? 'border-red-500' : 'border-gray-300'}`}
+          className="w-full p-2 border rounded"
           placeholder="Title"
         />
-        {errors.title && <p className="mt-1 text-xs text-red-600">{errors.title}</p>}
+        {errors.title && <p className="text-xs text-red-600 mt-1">{errors.title}</p>}
       </div>
-      {/* Price */}
-      <div>
+      <div className="mb-2">
         <input
           type="number"
-          step="0.01"
           name="price"
           value={formData.price}
           onChange={handleInputChange}
-          className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${errors.price ? 'border-red-500' : 'border-gray-300'}`}
+          className="w-full p-2 border rounded"
           placeholder="Price"
         />
-        {errors.price && <p className="mt-1 text-xs text-red-600">{errors.price}</p>}
+        {errors.price && <p className="text-xs text-red-600 mt-1">{errors.price}</p>}
       </div>
-      {/* Category */}
-      <div>
+      <div className="mb-2">
         <input
           type="text"
           name="category"
           value={formData.category}
           onChange={handleInputChange}
-          className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${errors.category ? 'border-red-500' : 'border-gray-300'}`}
+          className="w-full p-2 border rounded"
           placeholder="Category"
         />
-        {errors.category && <p className="mt-1 text-xs text-red-600">{errors.category}</p>}
+        {errors.category && <p className="text-xs text-red-600 mt-1">{errors.category}</p>}
       </div>
-      {/* Image URL */}
-      <div>
+      <div className="mb-2">
         <input
           type="url"
           name="image"
           value={formData.image}
           onChange={handleInputChange}
-          className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${errors.image ? 'border-red-500' : 'border-gray-300'}`}
+          className="w-full p-2 border rounded"
           placeholder="Image URL"
         />
-        {errors.image && <p className="mt-1 text-xs text-red-600">{errors.image}</p>}
+        {errors.image && <p className="text-xs text-red-600 mt-1">{errors.image}</p>}
       </div>
-      {/* Description */}
-      <div>
+      <div className="mb-2">
         <textarea
           name="description"
           value={formData.description}
           onChange={handleInputChange}
-          className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
+          className="w-full p-2 border rounded"
           rows="2"
           placeholder="Description"
         />
-        {errors.description && <p className="mt-1 text-xs text-red-600">{errors.description}</p>}
+        {errors.description && <p className="text-xs text-red-600 mt-1">{errors.description}</p>}
       </div>
-      {/* Buttons */}
-      <div className="flex space-x-2 pt-2">
+      <div className="flex gap-2 pt-2">
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-medium text-sm transition-colors"
+          className="bg-blue-600 text-white px-4 py-2 rounded text-sm"
         >
           Add
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded font-medium text-sm transition-colors"
+          className="bg-gray-600 text-white px-4 py-2 rounded text-sm"
         >
           Cancel
         </button>
