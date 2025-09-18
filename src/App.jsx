@@ -1,17 +1,10 @@
-// Import React and components
 import { useState, useEffect } from "react";
 import ProductTable from "./components/ProductTable";
 import ProductForm from "./components/ProductForm";
 import SearchBar from "./components/SearchBar";
-import {
-  fetchProducts,
-  addProduct,
-  updateProduct,
-  deleteProduct,
-} from "./services/api";
+import { fetchProducts, addProduct } from "./services/api";
 
 function App() {
-  // State for products and UI
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,7 +14,6 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const PRODUCTS_PER_PAGE = 10;
 
-  // Load products from API when app starts
   useEffect(() => {
     async function loadProducts() {
       setLoading(true);
@@ -37,7 +29,6 @@ function App() {
     loadProducts();
   }, []);
 
-  // Filter products when search changes
   useEffect(() => {
     if (searchTerm.trim() === "") {
       setFilteredProducts(products);
@@ -61,41 +52,15 @@ function App() {
   );
 
   // Add a new product
-  async function handleAddProduct(productData) {
-    const newProduct = await addProduct(productData);
+  function handleAddProduct(productData) {
+    const newProduct = addProduct(productData);
     setProducts([newProduct, ...products]);
     setShowForm(false);
-  }
-
-  // Update a product
-  async function handleUpdateProduct(productId, productData) {
-    const updatedProduct = await updateProduct(productId, productData);
-    setProducts(
-      products.map((product) =>
-        product.id === productId ? { ...product, ...updatedProduct } : product
-      )
-    );
-  }
-
-  // Delete a product
-  async function handleDeleteProduct(productId) {
-    await deleteProduct(productId);
-    setProducts(products.filter((product) => product.id !== productId));
   }
 
   // Handle search input
   function handleSearchChange(value) {
     setSearchTerm(value);
-  }
-
-  // Show the add product form
-  function handleShowForm() {
-    setShowForm(true);
-  }
-
-  // Hide the add product form
-  function handleCancelForm() {
-    setShowForm(false);
   }
 
   // Pagination controls
@@ -106,7 +71,7 @@ function App() {
   // Show loading spinner
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading products...</p>
@@ -122,7 +87,7 @@ function App() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Product Management System
           </h1>
-          <p className="text-base text-gray-600 dark:text-gray-300">
+          <p className="text-md text-gray-600 dark:text-gray-300">
             Manage your products with full CRUD operations and search
             functionality
           </p>
@@ -143,7 +108,7 @@ function App() {
           </div>
           <div>
             <button
-              onClick={handleShowForm}
+              onClick={() => setShowForm(true)}
               className="bg-blue-600 hover:bg-blue-700 
                  text-white px-4 py-2 rounded-lg 
                  flex items-center shadow-lg shadow-blue-500/50"
@@ -153,12 +118,11 @@ function App() {
           </div>
         </div>
 
-        {/* Product Form */}
         {showForm && (
           <div className="mb-8">
             <ProductForm
               onSubmit={handleAddProduct}
-              onCancel={handleCancelForm}
+              onCancel={() => setShowForm(false)}
             />
           </div>
         )}
@@ -167,15 +131,15 @@ function App() {
         <div className="mb-4">
           <p className="text-sm text-gray-600 dark:text-gray-300">
             Showing {paginatedProducts.length} of {filteredProducts.length}{" "}
-            products (Page {currentPage} of {totalPages})
+            products (Page {totalPages == 0 ? 0 : currentPage} of {totalPages})
           </p>
         </div>
 
         {/* Product Table */}
         <ProductTable
           products={paginatedProducts}
-          onUpdate={handleUpdateProduct}
-          onDelete={handleDeleteProduct}
+          allProducts={products}
+          setProducts={setProducts}
         />
 
         {/* Pagination Controls */}

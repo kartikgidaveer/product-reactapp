@@ -1,39 +1,36 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-// ProductForm lets you add a new product
 function ProductForm({ onSubmit, onCancel }) {
-  // State for form fields and errors
-  const [formData, setFormData] = useState({
-    title: '',
-    price: '',
-    description: '',
-    category: '',
-    image: ''
-  });
   const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    title: "",
+    price: "",
+    description: "",
+    category: "",
+    image: "",
+  });
 
-  // Handle input changes
   function handleInputChange(e) {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   }
 
-  // Validate form fields
   function validateForm() {
     const newErrors = {};
-    if (!formData.title.trim()) newErrors.title = 'Title is required';
-    if (!formData.price || formData.price <= 0) newErrors.price = 'Price must be greater than 0';
-    if (!formData.description.trim()) newErrors.description = 'Description is required';
-    if (!formData.category.trim()) newErrors.category = 'Category is required';
-    if (!formData.image.trim()) newErrors.image = 'Image URL is required';
+    if (!formData.title.trim()) newErrors.title = "Title is required";
+    if (!formData.price || formData.price <= 0)
+      newErrors.price = "Price must be greater than 0";
+    if (!formData.description.trim())
+      newErrors.description = "Description is required";
+    if (!formData.category.trim()) newErrors.category = "Category is required";
+    if (!formData.image.trim()) newErrors.image = "Image URL is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }
 
-  // Handle form submit
   function handleSubmit(e) {
     e.preventDefault();
     if (validateForm()) {
@@ -42,16 +39,23 @@ function ProductForm({ onSubmit, onCancel }) {
         price: parseFloat(formData.price),
         description: formData.description.trim(),
         category: formData.category.trim(),
-        image: formData.image.trim()
+        image: formData.image.trim(),
       });
-      // Reset form
-      setFormData({ title: '', price: '', description: '', category: '', image: '' });
+      setFormData({
+        title: "",
+        price: "",
+        description: "",
+        category: "",
+        image: "",
+      });
     }
   }
 
-  // Render the form
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded border max-w-md mx-auto">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-4 rounded border max-w-md mx-auto"
+    >
       <h3 className="text-base font-bold text-gray-900 mb-2">Add Product</h3>
       <div className="mb-2">
         <input
@@ -62,7 +66,9 @@ function ProductForm({ onSubmit, onCancel }) {
           className="w-full p-2 border rounded"
           placeholder="Title"
         />
-        {errors.title && <p className="text-xs text-red-600 mt-1">{errors.title}</p>}
+        {errors.title && (
+          <p className="text-xs text-red-600 mt-1">{errors.title}</p>
+        )}
       </div>
       <div className="mb-2">
         <input
@@ -73,7 +79,9 @@ function ProductForm({ onSubmit, onCancel }) {
           className="w-full p-2 border rounded"
           placeholder="Price"
         />
-        {errors.price && <p className="text-xs text-red-600 mt-1">{errors.price}</p>}
+        {errors.price && (
+          <p className="text-xs text-red-600 mt-1">{errors.price}</p>
+        )}
       </div>
       <div className="mb-2">
         <input
@@ -84,7 +92,9 @@ function ProductForm({ onSubmit, onCancel }) {
           className="w-full p-2 border rounded"
           placeholder="Category"
         />
-        {errors.category && <p className="text-xs text-red-600 mt-1">{errors.category}</p>}
+        {errors.category && (
+          <p className="text-xs text-red-600 mt-1">{errors.category}</p>
+        )}
       </div>
       <div className="mb-2">
         <input
@@ -95,7 +105,9 @@ function ProductForm({ onSubmit, onCancel }) {
           className="w-full p-2 border rounded"
           placeholder="Image URL"
         />
-        {errors.image && <p className="text-xs text-red-600 mt-1">{errors.image}</p>}
+        {errors.image && (
+          <p className="text-xs text-red-600 mt-1">{errors.image}</p>
+        )}
       </div>
       <div className="mb-2">
         <textarea
@@ -106,7 +118,9 @@ function ProductForm({ onSubmit, onCancel }) {
           rows="2"
           placeholder="Description"
         />
-        {errors.description && <p className="text-xs text-red-600 mt-1">{errors.description}</p>}
+        {errors.description && (
+          <p className="text-xs text-red-600 mt-1">{errors.description}</p>
+        )}
       </div>
       <div className="flex gap-2 pt-2">
         <button

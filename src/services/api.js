@@ -2,8 +2,7 @@ const API_URL = 'https://fakestoreapi.com/products';
 
 export async function fetchProducts() {
   const response = await fetch(API_URL);
-  const products = await response.json();
-  return products;
+  return response.json();
 }
 
 export function addProduct(product) {
@@ -19,8 +18,4 @@ export function updateProduct(id, product) {
     id,
     ...product
   };
-}
-
-export function deleteProduct(id) {
-  return id;
 }

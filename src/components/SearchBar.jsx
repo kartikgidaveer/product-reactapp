@@ -1,4 +1,3 @@
-// SearchBar lets you search products
 function SearchBar({ searchTerm, onSearchChange }) {
   return (
     <input

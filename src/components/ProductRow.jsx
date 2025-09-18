@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { updateProduct } from '../services/api';
 
-function ProductRow({ product, onUpdate, onDelete }) {
+function ProductRow({ product, allProducts, setProducts }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
     title: product.title,
@@ -10,7 +11,12 @@ function ProductRow({ product, onUpdate, onDelete }) {
   });
 
   function handleSave() {
-    onUpdate(product.id, editData);
+    const updatedProduct = updateProduct(product.id, editData);
+    setProducts(
+      allProducts.map((p) =>
+        p.id === product.id ? { ...p, ...updatedProduct } : p
+      )
+    );
     setIsEditing(false);
   }
 
@@ -31,7 +37,10 @@ function ProductRow({ product, onUpdate, onDelete }) {
     }));
   }
 
- 
+  function handleDelete() {
+    setProducts(allProducts.filter((p) => p.id !== product.id));
+  }
+
   return (
     <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
       <td>
@@ -41,6 +50,7 @@ function ProductRow({ product, onUpdate, onDelete }) {
           className="h-12 w-12 rounded-lg object-cover mx-auto"
         />
       </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
           <input
@@ -55,6 +65,7 @@ function ProductRow({ product, onUpdate, onDelete }) {
           </span>
         )}
       </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
           <input
@@ -69,6 +80,7 @@ function ProductRow({ product, onUpdate, onDelete }) {
           </span>
         )}
       </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
           <input
@@ -83,7 +95,7 @@ function ProductRow({ product, onUpdate, onDelete }) {
           </span>
         )}
       </td>
-      {/* Product description */}
+
       <td className="px-6 py-4">
         {isEditing ? (
           <textarea
@@ -98,6 +110,7 @@ function ProductRow({ product, onUpdate, onDelete }) {
           </span>
         )}
       </td>
+      
       {/* Actions: Edit, Delete, Save, Cancel */}
       <td className="px-6 py-4 text-center">
         <div className="flex items-center justify-center space-x-2">
@@ -125,7 +138,7 @@ function ProductRow({ product, onUpdate, onDelete }) {
                 Edit
               </button>
               <button
-                onClick={() => onDelete(product.id)}
+                onClick={handleDelete}
                 className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors"
               >
                 Delete

@@ -1,6 +1,6 @@
 import ProductRow from './ProductRow';
 
-function ProductTable({ products, onUpdate, onDelete }) {
+function ProductTable({ products, allProducts, setProducts }) {
   if (products.length === 0) {
     return (
       <div className="text-center py-8 text-gray-500 text-lg">
@@ -10,30 +10,28 @@ function ProductTable({ products, onUpdate, onDelete }) {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow divide-y divide-gray-200 dark:divide-gray-700">
-        <thead className="bg-gray-100 dark:bg-gray-700">
-          <tr>
-            <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Image</th>
-            <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Title</th>
-            <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Price</th>
-            <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Category</th>
-            <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Description</th>
-            <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (
-            <ProductRow
-              key={product.id}
-              product={product}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
-            />
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow divide-y divide-gray-200 dark:divide-gray-700">
+      <thead className="bg-gray-100 dark:bg-gray-700">
+        <tr>
+          <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Image</th>
+          <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Title</th>
+          <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Price</th>
+          <th className="px-6 py-3 text-left text-sm text-gray-700 dark:text-gray-200 uppercase ">Category</th>
+          <th className="px-6 py-3 text-center text-sm text-gray-700 dark:text-gray-200 uppercase ">Description</th>
+          <th className="px-6 py-3 text-center text-sm text-gray-700 dark:text-gray-200 uppercase ">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.map(product => (
+          <ProductRow
+            key={product.id}
+            product={product}
+            allProducts={allProducts}
+            setProducts={setProducts}
+          />
+        ))}
+      </tbody>
+    </table>
   );
 }
 
