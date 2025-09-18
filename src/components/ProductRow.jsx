@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { updateProduct } from '../services/api';
+import { useState } from "react";
+import { updateProduct } from "../services/api";
 
 function ProductRow({ product, allProducts, setProducts }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -7,7 +7,7 @@ function ProductRow({ product, allProducts, setProducts }) {
     title: product.title,
     price: product.price,
     description: product.description,
-    category: product.category
+    category: product.category,
   });
 
   function handleSave() {
@@ -25,15 +25,15 @@ function ProductRow({ product, allProducts, setProducts }) {
       title: product.title,
       price: product.price,
       description: product.description,
-      category: product.category
+      category: product.category,
     });
     setIsEditing(false);
   }
 
   function handleInputChange(field, value) {
-    setEditData(prev => ({
+    setEditData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   }
 
@@ -56,7 +56,7 @@ function ProductRow({ product, allProducts, setProducts }) {
           <input
             type="text"
             value={editData.title}
-            onChange={e => handleInputChange('title', e.target.value)}
+            onChange={(e) => handleInputChange("title", e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white text-sm"
           />
         ) : (
@@ -71,12 +71,14 @@ function ProductRow({ product, allProducts, setProducts }) {
           <input
             type="number"
             value={editData.price}
-            onChange={e => handleInputChange('price', parseFloat(e.target.value))}
+            onChange={(e) =>
+              handleInputChange("price", parseFloat(e.target.value))
+            }
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white text-sm"
           />
         ) : (
           <span className="text-sm text-gray-900 dark:text-white">
-            ${product.price}
+            ₹{product.price}
           </span>
         )}
       </td>
@@ -86,7 +88,7 @@ function ProductRow({ product, allProducts, setProducts }) {
           <input
             type="text"
             value={editData.category}
-            onChange={e => handleInputChange('category', e.target.value)}
+            onChange={(e) => handleInputChange("category", e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white text-sm"
           />
         ) : (
@@ -100,7 +102,7 @@ function ProductRow({ product, allProducts, setProducts }) {
         {isEditing ? (
           <textarea
             value={editData.description}
-            onChange={e => handleInputChange('description', e.target.value)}
+            onChange={(e) => handleInputChange("description", e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white text-sm"
             rows="2"
           />
@@ -110,7 +112,7 @@ function ProductRow({ product, allProducts, setProducts }) {
           </span>
         )}
       </td>
-      
+
       {/* Actions: Edit, Delete, Save, Cancel */}
       <td className="px-6 py-4 text-center">
         <div className="flex items-center justify-center space-x-2">

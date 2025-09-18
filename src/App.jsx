@@ -41,29 +41,25 @@ function App() {
       );
       setFilteredProducts(filtered);
     }
-    setCurrentPage(1); // Reset to first page on search
+    setCurrentPage(1);
   }, [searchTerm, products]);
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
   const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   );
 
-  // Add a new product
   function handleAddProduct(productData) {
     const newProduct = addProduct(productData);
     setProducts([newProduct, ...products]);
     setShowForm(false);
   }
 
-  // Handle search input
   function handleSearchChange(value) {
     setSearchTerm(value);
   }
 
-  // Pagination controls
   function handlePageChange(page) {
     setCurrentPage(page);
   }
@@ -73,8 +69,8 @@ function App() {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading products...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+          <p className="mt-4 text-white">Loading products...</p>
         </div>
       </div>
     );
@@ -87,10 +83,6 @@ function App() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Product Management System
           </h1>
-          <p className="text-md text-gray-600 dark:text-gray-300">
-            Manage your products with full CRUD operations and search
-            functionality
-          </p>
         </div>
 
         {error && (
@@ -127,7 +119,6 @@ function App() {
           </div>
         )}
 
-        {/* Products Count */}
         <div className="mb-4">
           <p className="text-sm text-gray-600 dark:text-gray-300">
             Showing {paginatedProducts.length} of {filteredProducts.length}{" "}
@@ -135,44 +126,50 @@ function App() {
           </p>
         </div>
 
-        {/* Product Table */}
         <ProductTable
           products={paginatedProducts}
           allProducts={products}
           setProducts={setProducts}
         />
 
-        {/* Pagination Controls */}
         {totalPages > 1 && (
           <div className="flex justify-center items-center mt-6 space-x-2">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`px-3 py-1 rounded bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors ${
-                currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+              className={`px-3 py-1 rounded bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors${
+                currentPage === 1 ? " opacity-50 cursor-not-allowed" : ""
               }`}
             >
               Prev
             </button>
-            {[...Array(totalPages)].map((_, idx) => (
-              <button
-                key={idx + 1}
-                onClick={() => handlePageChange(idx + 1)}
-                className={`px-3 py-1 rounded font-medium transition-colors ${
-                  currentPage === idx + 1
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                {idx + 1}
-              </button>
-            ))}
+
+            {(() => {
+              const pageButtons = [];
+              for (let i = 1; i <= totalPages; i++) {
+                pageButtons.push(
+                  <button
+                    key={i}
+                    onClick={() => handlePageChange(i)}
+                    className={`px-3 py-1 rounded font-medium transition-colors${
+                      currentPage === i
+                        ? " bg-blue-600 text-white"
+                        : " bg-gray-200 text-gray-700 hover:bg-gray-400"
+                    }`}
+                  >
+                    {i}
+                  </button>
+                );
+              }
+              return pageButtons;
+            })()}
+
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`px-3 py-1 rounded bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors ${
+              className={`px-3 py-1 rounded bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition-colors${
                 currentPage === totalPages
-                  ? "opacity-50 cursor-not-allowed"
+                  ? " opacity-50 cursor-not-allowed"
                   : ""
               }`}
             >
