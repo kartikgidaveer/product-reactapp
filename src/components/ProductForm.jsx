@@ -54,87 +54,106 @@ function ProductForm({ onSubmit, onCancel }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-4 rounded border max-w-md mx-auto"
+      className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-200 dark:border-gray-700 w-full"
     >
-      <h3 className="text-base font-bold text-gray-900 mb-2">Add Product</h3>
-      <div className="mb-2">
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded"
-          placeholder="Title"
-        />
-        {errors.title && (
-          <p className="text-xs text-red-600 mt-1">{errors.title}</p>
-        )}
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Add Product</h3>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+          <input
+            id="title"
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Product title"
+          />
+          {errors.title && (
+            <p className="text-xs text-red-600 mt-1">{errors.title}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Price</label>
+          <input
+            id="price"
+            type="number"
+            step="0.01"
+            name="price"
+            value={formData.price}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="0.00"
+          />
+          {errors.price && (
+            <p className="text-xs text-red-600 mt-1">{errors.price}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
+          <input
+            id="category"
+            type="text"
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="e.g. electronics"
+          />
+          {errors.category && (
+            <p className="text-xs text-red-600 mt-1">{errors.category}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image URL</label>
+          <input
+            id="image"
+            type="url"
+            name="image"
+            value={formData.image}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="https://example.com/image.jpg"
+          />
+          {errors.image && (
+            <p className="text-xs text-red-600 mt-1">{errors.image}</p>
+          )}
+        </div>
+
+        <div className="md:col-span-2">
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="3"
+            placeholder="Describe the product"
+          />
+          {errors.description && (
+            <p className="text-xs text-red-600 mt-1">{errors.description}</p>
+          )}
+        </div>
       </div>
-      <div className="mb-2">
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded"
-          placeholder="Price"
-        />
-        {errors.price && (
-          <p className="text-xs text-red-600 mt-1">{errors.price}</p>
-        )}
-      </div>
-      <div className="mb-2">
-        <input
-          type="text"
-          name="category"
-          value={formData.category}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded"
-          placeholder="Category"
-        />
-        {errors.category && (
-          <p className="text-xs text-red-600 mt-1">{errors.category}</p>
-        )}
-      </div>
-      <div className="mb-2">
-        <input
-          type="url"
-          name="image"
-          value={formData.image}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded"
-          placeholder="Image URL"
-        />
-        {errors.image && (
-          <p className="text-xs text-red-600 mt-1">{errors.image}</p>
-        )}
-      </div>
-      <div className="mb-2">
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          className="w-full p-2 border rounded"
-          rows="2"
-          placeholder="Description"
-        />
-        {errors.description && (
-          <p className="text-xs text-red-600 mt-1">{errors.description}</p>
-        )}
-      </div>
-      <div className="flex gap-2 pt-2">
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded text-sm"
-        >
-          Add
-        </button>
+
+      <div className="flex flex-col sm:flex-row gap-2 pt-4 justify-end">
         <button
           type="button"
           onClick={onCancel}
-          className="bg-gray-600 text-white px-4 py-2 rounded text-sm"
+          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm"
         >
           Cancel
+        </button>
+        <button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm"
+        >
+          Add Product
         </button>
       </div>
     </form>

@@ -10,6 +10,18 @@ function ProductRow({ product, allProducts, setProducts }) {
     category: product.category,
   });
 
+  const formatCurrency = (value) => {
+    try {
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 2,
+      }).format(value ?? 0);
+    } catch (_) {
+      return `₹${value}`;
+    }
+  };
+
   function handleSave() {
     const updatedProduct = updateProduct(product.id, editData);
     setProducts(
@@ -70,15 +82,16 @@ function ProductRow({ product, allProducts, setProducts }) {
         {isEditing ? (
           <input
             type="number"
+            step="0.01"
             value={editData.price}
             onChange={(e) =>
-              handleInputChange("price", parseFloat(e.target.value))
+              handleInputChange("price", parseFloat(e.target.value || 0))
             }
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-900 dark:text-white text-sm"
           />
         ) : (
           <span className="text-sm text-gray-900 dark:text-white">
-            ₹{product.price}
+            {formatCurrency(product.price)}
           </span>
         )}
       </td>
